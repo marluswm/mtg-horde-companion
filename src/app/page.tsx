@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ZOMBIE_HORDE_PRESETS } from '@/data/zombieHordeDeck';
-import { useHorde } from '@/context/HordeContext';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ZOMBIE_HORDE_PRESETS } from "@/data/zombieHordeDeck";
+import { useHorde } from "@/context/HordeContext";
 
 export default function HomePage() {
   const router = useRouter();
   const { state, dispatch } = useHorde();
 
   const [selectedPresetId, setSelectedPresetId] = useState(
-    ZOMBIE_HORDE_PRESETS[0].id
+    ZOMBIE_HORDE_PRESETS[0].id,
   );
   const preset =
     ZOMBIE_HORDE_PRESETS.find((p) => p.id === selectedPresetId) ||
     ZOMBIE_HORDE_PRESETS[0];
 
   const [prepTurns, setPrepTurns] = useState(
-    preset.defaultRules.startingPlayerPrepTurns
+    preset.defaultRules.startingPlayerPrepTurns,
   );
   const [nonTokenStop, setNonTokenStop] = useState(
-    preset.defaultRules.stopOnNonTokenCount
+    preset.defaultRules.stopOnNonTokenCount,
   );
   const [hasteEnabled, setHasteEnabled] = useState(
-    preset.defaultRules.hordeCreaturesHaveHaste
+    preset.defaultRules.hordeCreaturesHaveHaste,
   );
 
   const handlePresetChange = (id: string) => {
@@ -43,7 +43,7 @@ export default function HomePage() {
 
   const handleStart = () => {
     dispatch({
-      type: 'START_GAME',
+      type: "START_GAME",
       deckName: preset.name,
       templates: preset.cards,
       rules: {
@@ -53,7 +53,7 @@ export default function HomePage() {
         hordeCreaturesHaveHaste: hasteEnabled,
       },
     });
-    router.push('/table');
+    router.push("/table");
   };
 
   return (
@@ -61,31 +61,31 @@ export default function HomePage() {
       <div className="mx-auto max-w-4xl space-y-8">
         <header className="space-y-2 border-b border-zinc-800 pb-6">
           <span className="inline-block rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
-            MTG Horde Companion • Jogo Físico + Mesa Virtual
+            MTG Horde Companion • Jogo Físico + Mesa Virtual de Horda Zumbi
           </span>
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Simulador de Horda Zumbi
+            Deck test Simulador de Horda Zumbi
           </h1>
           <p className="text-zinc-400">
             Jogue com seu deck físico na mesa enquanto o sistema controla o
-            grimório, ondas, ataques e permanentes da Horda em tempo real.
+            grimório, hordas, ataques e permanentes da horda em tempo real.
           </p>
         </header>
 
-        {state.phase !== 'SETUP' && (
+        {state.phase !== "SETUP" && (
           <div className="flex items-center justify-between rounded-xl border border-emerald-700/50 bg-emerald-950/30 p-4">
             <div>
               <p className="font-semibold text-emerald-300">
                 Você tem uma partida em andamento ({state.deckName})
               </p>
               <p className="text-xs text-zinc-400">
-                Grimório: {state.deck.length} cartas • Mesa:{' '}
+                Grimório: {state.deck.length} cartas • Mesa:{" "}
                 {state.battlefield.length} permanentes
               </p>
             </div>
             <button
               type="button"
-              onClick={() => router.push('/table')}
+              onClick={() => router.push("/table")}
               className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
               Voltar para a Mesa
@@ -121,8 +121,7 @@ export default function HomePage() {
                   Fichas: <strong>{totalTokens}</strong>
                 </span>
                 <span className="rounded bg-zinc-800 px-2 py-1">
-                  Mágicas/Criaturas:{' '}
-                  <strong>{totalCards - totalTokens}</strong>
+                  Mágicas/Criaturas: <strong>{totalCards - totalTokens}</strong>
                 </span>
               </div>
             </div>
@@ -180,25 +179,30 @@ export default function HomePage() {
             <h2 className="text-lg font-bold">Regras Rápidas da Horda</h2>
             <ul className="space-y-2.5 text-sm text-zinc-300">
               <li>
-                <strong className="text-emerald-400">• Mana Infinita:</strong>{' '}
-                A Horda paga qualquer custo e ignora impostos de mana.
+                <strong className="text-emerald-400">• Mana Infinita:</strong> A
+                Horda paga qualquer custo e ignora impostos de mana.
               </li>
               <li>
-                <strong className="text-emerald-400">• Turno da Horda:</strong>{' '}
+                <strong className="text-emerald-400">• Turno da Horda:</strong>{" "}
                 Revela cartas do topo; todas as fichas entram em jogo até
                 revelar <strong>{nonTokenStop}</strong> carta(s) não-ficha.
               </li>
               <li>
-                <strong className="text-emerald-400">• Combate:</strong>{' '}
+                <strong className="text-emerald-400">• Combate:</strong>{" "}
                 Criaturas da Horda atacam todos os turnos se puderem e não
-                bloqueiam.
+                bloqueiam (ou apenas criaturas com Defensor / Defender
+                bloqueiam).
               </li>
               <li>
-                <strong className="text-emerald-400">• Dano = Mill:</strong>{' '}
-                Cada ponto de dano causado à Horda mói 1 carta do grimório dela.
+                <strong className="text-emerald-400">• Dano = Mill:</strong>{" "}
+                Como a Horda não tem vida, atacar diretamente a Horda faz com
+                que ela mill do topo do grimório uma quantidade de cartas igual
+                ao dano causado.
               </li>
               <li>
-                <strong className="text-emerald-400">• Controles na Mesa:</strong>{' '}
+                <strong className="text-emerald-400">
+                  • Controles na Mesa:
+                </strong>{" "}
                 Use o <strong>botão direito</strong> sobre qualquer carta da
                 Horda para destruir, exilar, devolver ao topo ou adicionar
                 marcadores +1/+1.
