@@ -61,7 +61,8 @@ export default function HomePage() {
       <div className="mx-auto max-w-4xl space-y-8">
         <header className="space-y-2 border-b border-zinc-800 pb-6">
           <span className="inline-block rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
-            MTG Horde Companion • Jogo Físico + Mesa Virtual de Horda Zumbi
+            MTG Horde Companion • Jogo Físico + Mesa Virtual de Horda Zumbi (by
+            Mibeira)
           </span>
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
             Deck test Simulador de Horda Zumbi

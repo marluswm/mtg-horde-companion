@@ -5,7 +5,7 @@ import { HordeProvider } from "@/context/HordeContext";
 export const metadata: Metadata = {
   title: "Simulador de Horda Zumbi — MTG Horde Companion",
   description:
-    "Simulador de Horda Zumbi para Magic-The Gathering: focado em playtest com deck físico na mesa.",
+    "Simulador de Horda Zumbi para Magic-The Gathering: focado em playtest com deck físico na mesa. by Mibeira",
 };
 
 export default function RootLayout({
